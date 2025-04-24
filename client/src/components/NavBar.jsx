@@ -1,6 +1,6 @@
 // src/components/NavBar.jsx
 import { Link } from "react-router-dom";
-import { useAuth } from "./context/authContext";
+import { useAuth } from "../context/authContext";
 
 const NavBar = () => {
   const { user, logout } = useAuth();
