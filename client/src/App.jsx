@@ -1,16 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useAuth } from "./context/authContext.jsx";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+  const { user, loading } = useAuth();
+
+  if (loading) return <p>Loading...</p>;
 
   return (
-    <>
-  <h1 className='text-center' >hello world </h1>
-    </>
-  )
-}
+    // <Router>
+      <Routes>
+        <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
+        <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
+        <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
+      </Routes>
+    // </Router>
+  );
+};
 
-export default App
+export default App;
